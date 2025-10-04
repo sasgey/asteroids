@@ -42,15 +42,21 @@ def main():
             if event.type == pygame.QUIT:
                 return  # Exit the game
 
-        # Update all updatables
+        # --- Update all updatable objects ---
         updatables.update(dt)
+
+        # --- Collision detection ---
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                return  # Exit the game immediately
 
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
         for drawable in drawables:
             drawable.draw(screen)  # Draw each object individually
 
-        # Refresh the display
+        # --- Refresh the display ---
         pygame.display.flip()
 
         # --- Control the frame rate ---
