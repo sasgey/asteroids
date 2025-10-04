@@ -1,4 +1,5 @@
 import pygame, constants
+from player import Player
 
 def main():
     # Initialize pygame
@@ -10,10 +11,11 @@ def main():
 
     # Create a clock to manage frame rate
     clock = pygame.time.Clock()
-
-    # Delta time variable (seconds since last frame)
     dt = 0
-    
+
+    # --- Create the player at the center of the screen ---
+    player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
+
     # Game loop
     while True:
         # --- Handle events ---
@@ -23,6 +25,7 @@ def main():
         
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
+        player.draw(screen)     # Draw the player ship
 
         # Refresh the display
         pygame.display.flip()
