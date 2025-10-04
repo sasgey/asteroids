@@ -22,7 +22,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return  # Exit the game
-        
+
+        # --- Update player ---
+        player.update(dt)
+
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
         player.draw(screen)     # Draw the player ship
