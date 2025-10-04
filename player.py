@@ -1,4 +1,5 @@
 import pygame
+from shot import Shot
 import constants
 from circleshape import CircleShape  # assuming you already have circleshape.py
 
@@ -30,9 +31,19 @@ class Player(CircleShape):
         displacement = direction * constants.PLAYER_SPEED * dt
         # Update position
         self.position += displacement * constants.PLAYER_SPEED * dt
-    
+
+    def shoot(self):
+        shot = Shot(self.position.x, self.position.y)
+        # Velocity points in the direction player is facing
+        shot.velocity = pygame.Vector2(0, -1).rotate(self.rotation) * constants.PLAYER_SHOOT_SPEED
+        # Add the shot to its containers
+        if Shot.containers:
+            for group in Shot.containers:
+                group.add(shot)
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
+
         # Rotation
         if keys[pygame.K_a]:
             self.rotate(-dt)  # rotate left
@@ -43,4 +54,9 @@ class Player(CircleShape):
         if keys[pygame.K_w]:
             self.move(dt)     # move forward
         if keys[pygame.K_s]:
-            self.move(-dt)    # move backward      
+            self.move(-dt)    # move backward
+
+        # Shooting
+        if keys[pygame.K_SPACE]:
+            self.shoot()
+
