@@ -1,10 +1,10 @@
 import pygame
-from constants import PLAYER_RADIUS
+import constants
 from circleshape import CircleShape  # assuming you already have circleshape.py
 
 class Player(CircleShape):
     def __init__(self, x, y):
-        super().__init__(x, y, PLAYER_RADIUS)
+        super().__init__(x, y, constants.PLAYER_RADIUS)
         self.rotation = 0  # initial rotation angle in degrees
 
     # --- Triangle shape for the ship ---
