@@ -29,7 +29,7 @@ class Player(CircleShape):
         # Scale by speed and dt
         displacement = direction * constants.PLAYER_SPEED * dt
         # Update position
-        self.position += displacement
+        self.position += displacement * constants.PLAYER_SPEED * dt
     
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -43,4 +43,4 @@ class Player(CircleShape):
         if keys[pygame.K_w]:
             self.move(dt)     # move forward
         if keys[pygame.K_s]:
-            self.move(-dt)    # move backward
+            self.move(-dt)    # move backward      
