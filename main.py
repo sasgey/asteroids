@@ -1,5 +1,7 @@
 import pygame, constants
 from player import Player
+from asteroidfield import AsteroidField
+from asteroid import Asteroid
 import constants
 
 def main():
@@ -17,11 +19,21 @@ def main():
     # --- Create groups ---
     updatables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     # --- Create the player at the center of the screen ---
     player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
+    Player.containers = (updatables, drawables)
     updatables.add(player)
     drawables.add(player)
+
+    # --- Assign containers for Asteroids ---
+    Asteroid.containers = (asteroids, updatables, drawables)
+
+    # --- Create asteroid field ---
+    AsteroidField.containers = (updatables,)
+    field = AsteroidField()
+    updatables.add(field)
 
     # Game loop
     while True:
@@ -30,8 +42,8 @@ def main():
             if event.type == pygame.QUIT:
                 return  # Exit the game
 
-        # --- Update player ---
-        player.update(dt)
+        # Update all updatables
+        updatables.update(dt)
 
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
@@ -46,6 +58,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
     # Quit pygame after the loop exits
     pygame.quit()
