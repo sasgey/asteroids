@@ -20,6 +20,7 @@ class CircleShape(pygame.sprite.Sprite):
     def update(self, dt):
         # sub-classes must override
         pass
+
     def collides_with(self, other):
         """
         Check if this CircleShape collides with another CircleShape.

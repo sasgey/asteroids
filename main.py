@@ -1,4 +1,4 @@
-import pygame, constants
+import pygame
 from player import Player
 from asteroidfield import AsteroidField
 from asteroid import Asteroid
@@ -23,22 +23,17 @@ def main():
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
 
+    # --- Set containers BEFORE creating instances ---
+    Player.containers = (updatables, drawables)
+    Asteroid.containers = (asteroids, updatables, drawables)
+    Shot.containers = (shots, updatables, drawables)
+    AsteroidField.containers = (updatables,)
+
     # --- Create the player at the center of the screen ---
     player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
-    Player.containers = (updatables, drawables)
-    updatables.add(player)
-    drawables.add(player)
-
-    # --- Assign containers for Asteroids ---
-    Asteroid.containers = (asteroids, updatables, drawables)
-
-    # --- Assign containers for Shots ---
-    Shot.containers = (shots, updatables, drawables)
 
     # --- Create asteroid field ---
-    AsteroidField.containers = (updatables,)
     field = AsteroidField()
-    updatables.add(field)
 
     # Game loop
     while True:
