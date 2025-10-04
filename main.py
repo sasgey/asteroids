@@ -1,5 +1,6 @@
 import pygame, constants
 from player import Player
+import constants
 
 def main():
     # Initialize pygame
@@ -13,8 +14,14 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    # --- Create groups ---
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+
     # --- Create the player at the center of the screen ---
     player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
+    updatables.add(player)
+    drawables.add(player)
 
     # Game loop
     while True:
@@ -28,7 +35,8 @@ def main():
 
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
-        player.draw(screen)     # Draw the player ship
+        for drawable in drawables:
+            drawable.draw(screen)  # Draw each object individually
 
         # Refresh the display
         pygame.display.flip()
