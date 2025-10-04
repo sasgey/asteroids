@@ -55,7 +55,7 @@ def main():
             # Bullet vs asteroid
             for bullet in shots:
                 if asteroid.collides_with(bullet):
-                    asteroid.kill()
+                    asteroid.split()
                     bullet.kill()
 
         # --- Draw everything ---
