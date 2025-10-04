@@ -9,3 +9,4 @@ PLAYER_SPEED = 200  # pixels per second
 PLAYER_TURN_SPEED = 300  # degrees per second
 SHOT_RADIUS = 5
 PLAYER_SHOOT_SPEED = 500  # pixels per second
+PLAYER_SHOOT_COOLDOWN = 0.3  # seconds between shots
