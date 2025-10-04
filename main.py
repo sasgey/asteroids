@@ -35,7 +35,7 @@ def main():
     # --- Create asteroid field ---
     field = AsteroidField()
 
-    # Game loop
+    # --- Game loop ---
     while True:
         # --- Handle events ---
         for event in pygame.event.get():
@@ -47,9 +47,16 @@ def main():
 
         # --- Collision detection ---
         for asteroid in asteroids:
+            # Player vs asteroid
             if asteroid.collides_with(player):
                 print("Game over!")
                 return  # Exit the game immediately
+
+            # Bullet vs asteroid
+            for bullet in shots:
+                if asteroid.collides_with(bullet):
+                    asteroid.kill()
+                    bullet.kill()
 
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
