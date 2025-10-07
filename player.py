@@ -72,3 +72,6 @@ class Player(CircleShape):
         # Decrease cooldown timer
         if self.shoot_timer > 0:
             self.shoot_timer -= dt
+
+        # Wrap player around screen edges
+        self.wrap_position()
