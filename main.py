@@ -46,17 +46,22 @@ def main():
         updatables.update(dt)
 
         # --- Collision detection ---
-        for asteroid in asteroids:
-            # Player vs asteroid
-            if asteroid.collides_with(player):
-                print("Game over!")
-                return  # Exit the game immediately
 
-            # Bullet vs asteroid
-            for bullet in shots:
-                if asteroid.collides_with(bullet):
-                    asteroid.split()
-                    bullet.kill()
+        # Player vs asteroid collision
+        # spritecollideany() checks if a single sprite hits any sprite in a group.
+        if pygame.sprite.spritecollideany(player, asteroids):
+            print("Game over!")
+            return  # Exit the game
+
+        # Bullet vs asteroid collision
+        # groupcollide() checks for collisions between all members of two groups.
+        # The two 'True' arguments tell Pygame to automatically .kill() (remove)
+        # both the shot and the asteroid that collided.
+        asteroids_hit = pygame.sprite.groupcollide(shots, asteroids, True, True)
+
+        # Now, we loop ONLY through the asteroids that were hit and split them.
+        for asteroid in asteroids_hit:
+            asteroid.split()
 
         # --- Draw everything ---
         screen.fill((0, 0, 0))  # RGB color for black
