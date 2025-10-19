@@ -24,18 +24,14 @@ class Player(CircleShape):
     def draw(self, screen):
         pygame.draw.polygon(screen, "white", self.triangle(), 2)
 
-    # --- Rotate the player ---
-    def rotate(self, dt):
-        self.rotation += constants.PLAYER_TURN_SPEED * dt
-
     # --- Move the player forward/backward ---
     def move(self, dt):
         # Unit vector pointing up
         direction = pygame.Vector2(0, -1).rotate(self.rotation)  # -1 because screen y increases downward
-        # Scale by speed and dt
-        displacement = direction * constants.PLAYER_SPEED * dt
+        # Calculate velocity
+        velocity = direction * constants.PLAYER_SPEED
         # Update position
-        self.position += displacement * constants.PLAYER_SPEED * dt
+        self.position += velocity * dt
 
     # --- Shoot a bullet ---
     def shoot(self):
@@ -55,9 +51,9 @@ class Player(CircleShape):
 
         # Rotation
         if keys[pygame.K_a]:
-            self.rotate(-dt)  # rotate left
+            self.rotation -= constants.PLAYER_TURN_SPEED * dt
         if keys[pygame.K_d]:
-            self.rotate(dt)   # rotate right
+            self.rotation += constants.PLAYER_TURN_SPEED * dt
 
         # Movement
         if keys[pygame.K_w]:
