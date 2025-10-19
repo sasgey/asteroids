@@ -21,11 +21,6 @@ class Shot(CircleShape):
         if self.lifetime <= 0:
             self.kill()
             return
-        # If shot leaves screen bounds → remove it
-        if (
-            self.position.x < -self.radius
-            or self.position.x > constants.SCREEN_WIDTH + self.radius
-            or self.position.y < -self.radius
-            or self.position.y > constants.SCREEN_HEIGHT + self.radius
-        ):
-            self.kill()
+    
+        # Wrap shot position around screen edges
+        self.wrap_position()
