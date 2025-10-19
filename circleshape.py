@@ -1,8 +1,9 @@
 import pygame
 import constants
+from abc import ABC, abstractmethod
 
 # Base class for game objects
-class CircleShape(pygame.sprite.Sprite):
+class CircleShape(pygame.sprite.Sprite, ABC):
     def __init__(self, x, y, radius):
         # we will be using this later
         if hasattr(self, "containers"):
@@ -25,6 +26,11 @@ class CircleShape(pygame.sprite.Sprite):
             self.position.y = constants.SCREEN_HEIGHT + self.radius
         elif self.position.y > constants.SCREEN_HEIGHT + self.radius:
             self.position.y = -self.radius
+    
+    @abstractmethod
+    def draw(self, screen):
+        # sub-classes must override
+        pass
 
     def draw(self, screen):
         # sub-classes must override
